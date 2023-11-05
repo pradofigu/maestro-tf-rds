@@ -1,6 +1,6 @@
 resource "aws_security_group" "maestro_rds_sg" {
   name   = "maestro-rds-sg"
-  vpc_id = "vpc-010380145aa3110b8"
+  vpc_id = "vpc-0207cbc8b0a47452b"
 
   ingress {
     from_port   = 5432
