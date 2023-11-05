@@ -24,7 +24,8 @@ jobs:
         export TF_VAR_db_password=${{ secrets.DB_PASSWORD }}
 
     - name: Configure AWS credentials
-      run: |
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
         aws-access-key-id: ${{ secrets.ACCESS_KEY }}
         aws-secret-access-key: ${{ secrets.SECRET_KEY }}
         aws-region: us-east-1
