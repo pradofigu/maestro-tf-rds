@@ -33,7 +33,7 @@ jobs:
         DB_USERNAME: ${{secrets.DB_USERNAME}}
 
     - name: Terraform Apply
-      run: terraform apply -input=false tfplan -var DB_PASSWORD=$DB_PASSWORD -var DB_USERNAME=$DB_USERNAME
+      run: terraform apply -input=false tfplan
       env:
         DB_PASSWORD: ${{secrets.DB_PASSWORD}}
         DB_USERNAME: ${{secrets.DB_USERNAME}}   
