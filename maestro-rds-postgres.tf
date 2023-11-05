@@ -37,8 +37,8 @@ resource "aws_db_instance" "maestro" {
   allocated_storage      = 5
   engine                 = "postgres"
   engine_version         = "14.1"
-  username               = var.TF_VAR_DB_USERNAME
-  password               = var.TF_VAR_DB_PASSWORD
+  username               = var.DB_USERNAME
+  password               = var.DB_PASSWORD
   db_subnet_group_name   = "maestro-rds-cluster-subnet-private1-us-east-1a"
   vpc_security_group_ids = [aws_security_group.maestro_rds_sg.id]
   parameter_group_name   = aws_db_parameter_group.maestro.name

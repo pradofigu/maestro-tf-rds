@@ -24,29 +24,16 @@ jobs:
         aws-region: us-east-1
 
     - name: Initialize Terraform
-      run: |
-        export DB_PASSWORD=$DB_PASSWORD
-        export DB_USERNAME=$DB_USERNAME
-        terraform init
-      env:
-        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
-        DB_USERNAME: ${{secrets.DB_USERNAME}}
-
+      run: terraform init
 
     - name: Terraform Plan
-      run: |
-        export DB_PASSWORD=$DB_PASSWORD
-        export DB_USERNAME=$DB_USERNAME
-        terraform plan -out=tfplan
+      run: terraform plan -out=tfplan -var DB_PASSWORD=$DB_PASSWORD -var DB_USERNAME=$DB_USERNAME
       env:
         DB_PASSWORD: ${{secrets.DB_PASSWORD}}
         DB_USERNAME: ${{secrets.DB_USERNAME}}
 
     - name: Terraform Apply
-      run: |
-        export DB_PASSWORD=$DB_PASSWORD
-        export DB_USERNAME=$DB_USERNAME
-        terraform apply -input=false tfplan
+      run: terraform apply -input=false tfplan -var DB_PASSWORD=$DB_PASSWORD -var DB_USERNAME=$DB_USERNAME
       env:
         DB_PASSWORD: ${{secrets.DB_PASSWORD}}
         DB_USERNAME: ${{secrets.DB_USERNAME}}   
