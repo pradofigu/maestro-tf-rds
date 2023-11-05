@@ -31,8 +31,7 @@ resource "aws_db_parameter_group" "maestro" {
   }
 }
 
-resource "aws_db_instance" "maestro" {
-  identifier             = "maestro"
+resource "aws_db_instance" "maestro" {  
   instance_class         = "db.t3.micro"
   allocated_storage      = 5
   engine                 = "postgres"
