@@ -1,9 +1,9 @@
 name: Terraform IaC
 
 on:
-  push:
-    branches:
-      - feature/pipeline
+  pull_request_target:
+    types: [closed]
+    branches: [main]
 
 jobs:
   terraform:
