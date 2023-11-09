@@ -1,0 +1,42 @@
+name: Terraform IaC
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.SECRET_KEY }}
+        aws-region: us-east-1
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan -out=tfplan -var DB_PASSWORD=$DB_PASSWORD -var DB_USERNAME=$DB_USERNAME
+      env:
+        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+        DB_USERNAME: ${{secrets.DB_USERNAME}}
+
+    - name: Terraform Apply
+      run: terraform apply -input=false tfplan
+      env:
+        DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+        DB_USERNAME: ${{secrets.DB_USERNAME}}   
+
+    - name: Show Terraform Output
+      run: terraform output    
